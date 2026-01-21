@@ -365,6 +365,10 @@ function cargarGastosWeb(){
 }
   let botonCargarGasto = document.getElementById("cargar-gastos");
   botonCargarGasto.addEventListener("click", cargarGastosWeb);
+
+  function cargarGastosApi(){
+    
+  }
 export {
     mostrarDatoEnId,
     mostrarGastoWeb,
@@ -376,5 +380,6 @@ export {
     EditarHandleFormulario,
     filtrarGastosWeb,
     guardarGastosWeb,
-    cargarGastosWeb
+    cargarGastosWeb,
+    cargarGastosApi
 }
