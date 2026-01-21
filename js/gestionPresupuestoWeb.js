@@ -83,6 +83,7 @@ function mostrarGastoWeb(idContenedor, datosGasto) {
 
     botonEditarFormulario.addEventListener("click", manejadorEditarFormulario);
     bloqueGasto.appendChild(botonEditarFormulario);
+    
 }
 
 function mostrarGastosAgrupadosWeb(idElemento, agrup, periodo) {
@@ -366,8 +367,22 @@ function cargarGastosWeb(){
   let botonCargarGasto = document.getElementById("cargar-gastos");
   botonCargarGasto.addEventListener("click", cargarGastosWeb);
 
-  function cargarGastosApi(){
-    
+  let botonApi = document.getElementById(".gasto-enviar-api");
+  botonApi.addEventListener("click", cargarGastosApi)
+
+  async function cargarGastosApi(){
+    let url = new URL(input#nombre_usuario;)
+    try{
+      const response = await fetch(url);
+       if (!response.ok) throw new Error('Error al crear');
+
+     const nuevoRecurso = await response.json();
+     gp.cargarGastos(nuevoRecurso);
+     repintar();
+    }
+    catch(error){
+      console.error(error);
+    }
   }
 export {
     mostrarDatoEnId,
