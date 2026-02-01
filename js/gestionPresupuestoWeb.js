@@ -369,20 +369,28 @@ if (botonCargarGastosApi) {
   botonCargarGastosApi.addEventListener("click", cargarGastosApi);
 }
 
-  async function cargarGastosApi(){
-    let url = new URL(input#nombre_usuario;)
-    try{
-      const response = await fetch(url);
-       if (!response.ok) throw new Error('Error al crear');
+async function cargarGastosApi() {
+  let usuario = document.getElementById("nombre_usuario").value;
+  let url = `https://gestion-presupuesto-api.onrender.com/api/${usuario}`;
 
-     const nuevoRecurso = await response.json();
-     gp.cargarGastos(nuevoRecurso);
-     repintar();
-    }
-    catch(error){
-      console.error(error);
-    }
+  try {
+    let response = await fetch(url);
+    if (!response.ok) throw new Error("Error API");
+
+    let gastos = await response.json();
+    gp.cargarGastos(gastos);
+    repintar();
+  } catch (e) {
+    console.error(e);
   }
+}
+function BorrarHandleApi(){}
+BorrarHandleApi.prototype.handleEvent = async function () {
+  let usuario = document.getElementById("nombre_usuario").value;
+  let url = `https://gestion-presupuesto-api.onrender.com/api/${usuario}/${this.gasto.id}`;
+  await fetch(url, { method: "DELETE" });
+  cargarGastosApi();
+};
 
 
 export {
@@ -397,5 +405,6 @@ export {
     filtrarGastosWeb,
     guardarGastosWeb,
     cargarGastosWeb,
-    cargarGastosApi
+    cargarGastosApi, 
+    BorrarHandleApi
 }
