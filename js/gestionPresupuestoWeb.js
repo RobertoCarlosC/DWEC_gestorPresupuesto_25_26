@@ -364,11 +364,10 @@ function cargarGastosWeb(){
   gp.cargarGastos(gastos);
   repintar();
 }
-  let botonCargarGasto = document.getElementById("cargar-gastos");
-  botonCargarGasto.addEventListener("click", cargarGastosWeb);
-
-  let botonApi = document.getElementById(".gasto-enviar-api");
-  botonApi.addEventListener("click", cargarGastosApi)
+let botonCargarGastosApi = document.getElementById("cargar-gastos-api");
+if (botonCargarGastosApi) {
+  botonCargarGastosApi.addEventListener("click", cargarGastosApi);
+}
 
   async function cargarGastosApi(){
     let url = new URL(input#nombre_usuario;)
@@ -384,6 +383,8 @@ function cargarGastosWeb(){
       console.error(error);
     }
   }
+
+
 export {
     mostrarDatoEnId,
     mostrarGastoWeb,
