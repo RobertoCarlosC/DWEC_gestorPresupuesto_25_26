@@ -87,35 +87,61 @@ function mostrarGastoWeb(idContenedor, datosGasto) {
 }
 
 function mostrarGastosAgrupadosWeb(idElemento, agrup, periodo) {
-  const elemento = document.getElementById(idElemento);
-  if (!elemento) return;
 
-  const divAgrupacion = document.createElement("div");
-  divAgrupacion.classList.add("agrupacion");
+  var divP = document.getElementById(idElemento);
+  if (!divP) return;
 
-  const titulo = document.createElement("h1");
-  titulo.textContent = `Gastos agrupados por ${periodo}`;
-  divAgrupacion.appendChild(titulo);
+  divP.innerHTML = "";
 
-  Object.entries(agrup).forEach(([clave, valor]) => {
-    const divDato = document.createElement("div");
-    divDato.classList.add("agrupacion-dato");
 
-    const spanClave = document.createElement("span");
-    spanClave.classList.add("agrupacion-dato-clave");
-    spanClave.textContent = clave;
+  divP.style.width = "33%";
+  divP.style.display = "inline-block";
 
-    const spanValor = document.createElement("span");
-    spanValor.classList.add("agrupacion-dato-valor");
-    spanValor.textContent = valor;
+  let chart = document.createElement("canvas");
 
-    divDato.appendChild(spanClave);
-    divDato.appendChild(spanValor);
-    divAgrupacion.appendChild(divDato);
+  let unit = "";
+  switch (periodo) {
+    case "anyo":
+      unit = "year";
+      break;
+    case "mes":
+      unit = "month";
+      break;
+    case "dia":
+    default:
+      unit = "day";
+      break;
+  }
+
+  new Chart(chart.getContext("2d"), {
+    type: "bar",
+    data: {
+      datasets: [
+        {
+          label: `Gastos por ${periodo}`,
+          backgroundColor: "#555555",
+          data: agrup
+        }
+      ]
+    },
+    options: {
+      scales: {
+        x: {
+          type: "time",
+          time: {
+            unit: unit
+          }
+        },
+        y: {
+          beginAtZero: true
+        }
+      }
+    }
   });
 
-  elemento.appendChild(divAgrupacion);
+  divP.append(chart);
 }
+
 
 function repintar() {
     let presupuesto = gp.mostrarPresupuesto();
