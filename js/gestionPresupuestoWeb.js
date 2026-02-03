@@ -160,6 +160,18 @@ function repintar() {
     for (let gasto of gastosCompletos) {
         mostrarGastoWeb("listado-gastos-completo", gasto);
     }
+
+    let gastos = gp.listarGastos();
+
+  let gastosDia = gp.agruparGastos(gastos, "dia");
+  mostrarGastosAgrupadosWeb("agrupacion-dia", gastosDia, "dia");
+
+  let gastosMes = gp.agruparGastos(gastos, "mes");
+  mostrarGastosAgrupadosWeb("agrupacion-mes", gastosMes, "mes");
+
+  let gastosAnyo = gp.agruparGastos(gastos, "anyo");
+  mostrarGastosAgrupadosWeb("agrupacion-anyo", gastosAnyo, "anyo");
+
 }
 
 let btnAcualizar = document.getElementById("actualizarpresupuesto");
@@ -418,6 +430,7 @@ BorrarHandleApi.prototype.handleEvent = async function () {
   cargarGastosApi();
 };
 
+repintar();
 
 export {
     mostrarDatoEnId,
